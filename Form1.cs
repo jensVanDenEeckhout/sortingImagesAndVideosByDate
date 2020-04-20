@@ -49,14 +49,35 @@ namespace sortingSoftware
             var files = GetFilesFrom(searchFolder, filters, isRecursive);
 
 
-
+            string yearMonth;
+            string yearMonthDay_dayOfTheWeek;
             foreach (var file in files)
             {
 
                 DateTime creation = File.GetLastWriteTime(file);
-                string yearMonth = creation.Year.ToString() + creation.Month.ToString();
-                string yearMonthDay_dayOfTheWeek = creation.Year.ToString() + creation.Month.ToString() + creation.Day.ToString() + "_" + creation.DayOfWeek;
+                if (creation.Month < 10)
+                {
+                    yearMonth = creation.Year.ToString() + "0" + creation.Month.ToString();
+                    yearMonthDay_dayOfTheWeek = creation.Year.ToString() + "0" + creation.Month.ToString();
 
+
+                }
+                else
+                {
+                    yearMonth = creation.Year.ToString() + creation.Month.ToString();
+                    yearMonthDay_dayOfTheWeek = creation.Year.ToString() + creation.Month.ToString();
+
+                }
+
+
+                if(creation.Day < 10)
+                {
+                    yearMonthDay_dayOfTheWeek += "0" + creation.Day.ToString() + "_" + creation.DayOfWeek;
+                }
+                else
+                {
+                    yearMonthDay_dayOfTheWeek += creation.Day.ToString() + "_" + creation.DayOfWeek;
+                }
 
                 string extension = Path.GetExtension(file);
 
